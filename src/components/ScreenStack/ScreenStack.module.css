@@ -1,0 +1,29 @@
+/*
+ * ScreenStack layout.
+ *
+ * `.viewport` is the absolute frame that holds both outgoing and incoming
+ * screens during a transition. It must fill its parent so the sliding
+ * screens have somewhere to sit.
+ *
+ * `.screen` is each individual page layer. It's absolute so the two layers
+ * overlap cleanly during the crossfade. `min-height: 100%` lets each
+ * screen's internal flex column behave as if it owned the phone content
+ * area — so a sticky footer still sticks.
+ */
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Lets the child `.screen` pattern (min-height:100%; flex column) work. */
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,204 @@
+/*
+ * Unified top-bar chrome. Fixed 56px strip at the top of every page,
+ * with its own background so content/phone frame/edit drawers never
+ * collide visually. Left group is navigation (hamburger + variants pill,
+ * 24px apart); right group is dev toggles. z-index 20 sits above
+ * in-page content (z 1–10) and below the edit overlay (z 2147483000).
+ */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  padding: 0 16px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--tui-background-general-level-1);
+  border-bottom: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.08));
+  box-sizing: border-box;
+}
+
+/*
+ * Centered prototype title — absolute-positioned so it always sits
+ * dead-center regardless of what fills .left / .right. pointer-events
+ * off so it never eats clicks meant for the side controls if text is
+ * long enough to overlap them.
+ */
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  max-width: 40vw;
+  display: flex;
+  align-items: center;
+}
+
+.centerTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tui-front-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 16px gap between hamburger / variants pill / restart per design. */
+.left {
+  gap: 16px;
+}
+
+/*
+ * Hamburger popover wrapper — same behavior as the previous inline
+ * version in App.tsx. Kept here so TopBar is self-contained.
+ */
+.menuWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.menuPanel {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  min-width: 200px;
+  background: var(--tui-background-general-level-1);
+  border: 1px solid var(--tui-line-primary);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 21;
+}
+
+.menuItem {
+  display: flex;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+.menuItem:hover {
+  background: var(--tui-hover-controls-generic, var(--tui-background-general-level-2));
+}
+
+.variantsPill {
+  display: inline-flex;
+  padding: 2px;
+  gap: 2px;
+  background: var(--tui-background-general-level-2);
+  border-radius: 999px;
+  height: 32px;
+  align-items: center;
+}
+
+.variantsPill:has(button:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.variant,
+.variantActive {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--tui-front-secondary);
+  cursor: pointer;
+  padding: 0;
+}
+
+.variantActive {
+  background: var(--tui-background-accent-strong);
+  color: #fff;
+}
+
+.variant:disabled,
+.variantActive:disabled {
+  cursor: not-allowed;
+}
+
+.editToggle,
+.editToggleActive {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--tui-line-primary);
+  background: transparent;
+  color: var(--tui-front-secondary);
+  cursor: pointer;
+}
+
+/*
+ * Destructive / "exit" treatment for the active state. Uses tabby-ui's
+ * negative tokens so it reads as "leave this mode" rather than "do more
+ * of this mode". Hover slightly intensifies.
+ */
+.editToggleActive {
+  background: var(--tui-background-negative-strong);
+  color: #fff;
+  border-color: transparent;
+}
+
+.editToggleActive:hover {
+  filter: brightness(1.05);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--tui-front-primary);
+  height: 32px;
+  padding: 0 8px;
+}
+
+/*
+ * Restart is a text button sized to match the hamburger + variants pill
+ * (32px tall). Reads as an action, not a toggle — no border, subtle
+ * hover state on the level-2 background to match the rest of the
+ * left-group chrome.
+ */
+.restartBtn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: none;
+  background: var(--tui-background-general-level-2);
+  color: var(--tui-front-primary);
+  cursor: pointer;
+}
+
+.restartBtn:hover {
+  filter: brightness(0.96);
+}
+
+.restartBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,48 @@
+/*
+  Status bar chrome (time, dynamic-island spacer, signal/wifi/battery).
+  Transparent background so the screen's color shows through —
+  PhoneFrame's .screen defaults to the canvas token, so with a typical
+  level-0 screen the bar reads as a seamless top strip.
+*/
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 32px 10px;
+  background: transparent;
+  position: relative;
+  flex: 0 0 44px;
+}
+
+/*
+ * iPhone status-bar clock. This is DEVICE-FRAME chrome simulating iOS
+ * system UI — it does not theme with the Tabby palette and does not use
+ * tabby-ui typography tokens. SF-Pro-equivalent sizing (17px, 600) is
+ * intentional here so the frame reads as a convincing iPhone. If you
+ * theme this with tui tokens it stops looking like an iPhone.
+ */
+.clock {
+  width: 54px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: black;
+}
+
+/*
+  Holds the space under the Dynamic Island cut-out in the frame PNG.
+  The actual island visual comes from the frame image overlay.
+*/
+.islandSpacer {
+  width: 126px;
+  height: 37px;
+}
+
+.indicators {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 78px;
+  justify-content: flex-end;
+}

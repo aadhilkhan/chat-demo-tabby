@@ -1,0 +1,11 @@
+/*
+ * Prototype-only CSS variables.
+ *
+ * Tabby-ui ships a full semantic token set as --tui-* variables — always prefer
+ * those first. Only add tokens here for visuals tabby-ui does NOT ship
+ * (e.g. phone-frame chrome, prototype-specific accents).
+ */
+
+:root {
+  /* intentionally empty — add prototype-only vars below as you need them */
+}

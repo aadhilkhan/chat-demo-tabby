@@ -1,0 +1,411 @@
+.root {
+  position: fixed;
+  right: 0;
+  top: 56px;
+  bottom: 0;
+  width: 320px;
+  z-index: 2147482900;
+  background: var(--tui-background-general-level-1);
+  border-left: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.08));
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: var(--tui-front-primary);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.08));
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.component {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.location {
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--tui-front-secondary);
+  word-break: break-all;
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--tui-front-secondary);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.close:hover {
+  background: var(--tui-background-general-level-2);
+  color: var(--tui-front-primary);
+}
+
+/* Empty state — shown when edit mode is on but nothing is selected. */
+.headerEmpty {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.08));
+}
+
+.emptyTitle {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--tui-front-primary);
+}
+
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--tui-front-tertiary);
+  margin-bottom: 4px;
+}
+
+.emptyHeadline {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tui-front-primary);
+}
+
+.emptyHint {
+  font-size: 12px;
+  color: var(--tui-front-secondary);
+  line-height: 1.4;
+  max-width: 220px;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tui-front-secondary);
+}
+
+.textarea,
+.select {
+  font: inherit;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.12));
+  background: var(--tui-background-general-level-0);
+  color: var(--tui-front-primary);
+  resize: vertical;
+}
+
+.textarea:focus,
+.select:focus {
+  outline: 2px solid var(--tui-front-accent);
+  outline-offset: -1px;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--tui-front-secondary);
+  font-style: italic;
+}
+
+/* --- Figma-style 2x2 side grid (padding / margin) --- */
+
+.sideGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sideCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.12));
+  border-radius: 8px;
+  background: var(--tui-background-general-level-0);
+  cursor: text;
+  min-width: 0;
+}
+
+.sideCell:focus-within {
+  outline: 2px solid var(--tui-front-accent);
+  outline-offset: -1px;
+}
+
+.sideIcon {
+  color: var(--tui-front-secondary);
+  flex: 0 0 auto;
+}
+
+.sideInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  color: var(--tui-front-primary);
+  padding: 0;
+  -moz-appearance: textfield;
+  outline: none;
+}
+
+.sideInput::-webkit-outer-spin-button,
+.sideInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* --- Gap input (hugs content, no full width) --- */
+
+.gapInputWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.12));
+  border-radius: 8px;
+  background: var(--tui-background-general-level-0);
+  width: fit-content;
+}
+
+.gapInputWrap:focus-within {
+  outline: 2px solid var(--tui-front-accent);
+  outline-offset: -1px;
+}
+
+.gapInput {
+  width: 48px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  color: var(--tui-front-primary);
+  padding: 0;
+  -moz-appearance: textfield;
+  outline: none;
+  text-align: start;
+}
+
+.gapInput::-webkit-outer-spin-button,
+.gapInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.gapUnit {
+  color: var(--tui-front-secondary);
+  font-size: 11px;
+}
+
+/* --- Comment field Done button --- */
+
+.commentActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.commentDone,
+.commentDoneDisabled {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.commentDone {
+  background: var(--tui-background-accent-strong);
+  color: #fff;
+}
+
+.commentDone:hover {
+  filter: brightness(1.08);
+}
+
+.commentDoneDisabled {
+  background: var(--tui-background-general-level-2);
+  color: var(--tui-front-tertiary);
+  cursor: not-allowed;
+}
+
+/* --- Color token combobox (searchable) --- */
+
+.combo {
+  position: relative;
+}
+
+.comboTrigger {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.12));
+  border-radius: 8px;
+  background: var(--tui-background-general-level-0);
+  color: var(--tui-front-primary);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: start;
+}
+
+.comboTrigger:hover {
+  border-color: var(--tui-line-primary);
+}
+
+.comboValue {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.comboChevron {
+  color: var(--tui-front-secondary);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.comboPanel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  background: var(--tui-background-general-level-1);
+  border: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.12));
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  z-index: 3;
+  max-height: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comboSearch {
+  font: inherit;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--tui-line-disabled-level-1, rgba(0, 0, 0, 0.1));
+  background: var(--tui-background-general-level-0);
+  color: var(--tui-front-primary);
+  outline: none;
+}
+
+.comboSearch:focus {
+  border-color: var(--tui-front-accent);
+}
+
+.comboList {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 2px;
+}
+
+.comboGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.comboGroupLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tui-front-tertiary);
+  padding: 4px 6px 2px;
+}
+
+.comboRow,
+.comboRowActive {
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 6px;
+  color: var(--tui-front-secondary);
+  cursor: pointer;
+  text-align: start;
+}
+
+.comboRow:hover {
+  background: var(--tui-background-general-level-2);
+  color: var(--tui-front-primary);
+}
+
+.comboRowActive {
+  background: var(--tui-background-accent-muted-level-1, rgba(124, 58, 237, 0.1));
+  color: var(--tui-front-accent);
+  font-weight: 600;
+}
+
+.comboEmpty {
+  padding: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--tui-front-tertiary);
+}
+
+.comboHint {
+  font-size: 10px;
+  color: var(--tui-front-tertiary);
+  text-align: center;
+  padding: 4px 0 2px;
+}

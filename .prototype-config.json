@@ -1,0 +1,7 @@
+{
+  "name": "chat-demo",
+  "mode": "base",
+  "layout": "mobile",
+  "variants": 1,
+  "withDemo": false
+}

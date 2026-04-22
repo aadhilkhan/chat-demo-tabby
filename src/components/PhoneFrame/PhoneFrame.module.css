@@ -1,0 +1,111 @@
+/*
+ * PhoneFrame layout constants:
+ *   outer                = 497 × 980
+ *   bezel                = 42 (left, top, right, bottom)
+ *   inner screen         = 413 × 896
+ *   status bar height    = 44 px (flex child)
+ *   home indicator       = 34 px tall bottom safe area (flex child)
+ *
+ * Inside .screen we stack three rows as a flex column:
+ *   [ StatusBar      44 ]   ← transparent bg
+ *   [ .content       flex:1, overflow-y:auto ]
+ *   [ homeIndicator  34 ]   ← transparent bg, pill drawn via ::before
+ *
+ * Status bar and home indicator have transparent backgrounds and read
+ * through to `.screen`, which paints `var(--phone-screen-bg)` with a
+ * sensible default of `--tui-background-general-level-0` (the grey
+ * canvas that most prototype screens sit on). That means in the common
+ * case — level-0 canvas — the whole phone reads as one unbroken color,
+ * status bar through home indicator, with no mismatched white/grey
+ * seams at top or bottom.
+ *
+ * Prototypes whose major background is NOT level-0 (full-bleed white
+ * surface, dark hero, branded color) call the `usePhoneCanvas` hook
+ * from `src/lib/usePhoneCanvas.ts` with the matching token at the top
+ * of their screen component. The hook sets `--phone-screen-bg` on
+ * `document.body`; because custom properties inherit, it cascades
+ * down to `.screen` here and the chrome strips pick it up. Body's own
+ * background stays level-0 so the desktop canvas around the phone is
+ * unaffected.
+ *
+ * Sticky footer convention: screens with a bottom CTA set
+ * `margin-top: auto; position: sticky; bottom: 0;` on the footer — it
+ * sticks to the bottom of .content, which is above the home indicator
+ * zone. No clipping.
+ */
+
+.frame {
+  position: relative;
+  width: 497px;
+  height: 980px;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.12));
+  flex-shrink: 0;
+}
+
+.screen {
+  position: absolute;
+  top: 42px;
+  left: 42px;
+  width: 413px;
+  height: 896px;
+  border-radius: 50px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /*
+    Screen background follows `--phone-screen-bg` (inherited from body).
+    Default is `--tui-background-general-level-0` (grey canvas) so the
+    chrome strips match the most common prototype surface out of the
+    box. Screens with a different major background call
+    `usePhoneCanvas(token)` to update the var for their route; chrome
+    follows automatically.
+  */
+  background: var(--phone-screen-bg, var(--tui-background-general-level-0));
+}
+
+.content {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/*
+  Bottom safe area — 34 px tall, contains the centered home indicator pill.
+  Transparent background so the screen background shows through.
+  Not interactable; pointer-events:none so clicks pass through to any
+  sticky footer above.
+*/
+.homeIndicator {
+  flex: 0 0 34px;
+  position: relative;
+  background: transparent;
+  pointer-events: none;
+}
+
+.homeIndicator::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 134px;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--tui-front-primary);
+  opacity: 0.92;
+}
+
+/*
+  The iPhone frame PNG overlays the whole 497x980 box. pointer-events:none
+  so real UI inside the screen stays clickable.
+*/
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}

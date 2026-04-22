@@ -1,0 +1,61 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--tui-background-general-level-0);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+/*
+ * Scrollbars are always hidden in the Tabby prototype preview — a real phone
+ * doesn't show them, and a visible scrollbar breaks the "mobile app" illusion.
+ * Scrolling still works (swipe / wheel / keyboard); only the bar is invisible.
+ *
+ * Do NOT add per-component ::-webkit-scrollbar { display: none } rules in
+ * pattern or screen CSS — this one rule covers the whole app.
+ */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge / IE */
+}
+
+/*
+ * Installed by /edit-mode skill — do not remove by hand.
+ * While the inline-edit overlay is active, the phone content becomes
+ * non-interactive for the designer: no text selection, no text caret,
+ * cursor normalized so buttons/inputs don't advertise clickability.
+ * Click/mousedown blocking happens at the JS level inside EditOverlay.
+ */
+body.tabby-edit-active [data-tabby-editable-root],
+body.tabby-edit-active [data-tabby-editable-root] * {
+  user-select: none;
+  -webkit-user-select: none;
+  caret-color: transparent;
+  cursor: default !important;
+}

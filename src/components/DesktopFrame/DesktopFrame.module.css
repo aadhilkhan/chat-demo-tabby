@@ -1,0 +1,14 @@
+.root {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--tui-background-general-level-0);
+  display: flex;
+  justify-content: center;
+}
+
+.inner {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  background: var(--tui-background-general-level-0);
+}
