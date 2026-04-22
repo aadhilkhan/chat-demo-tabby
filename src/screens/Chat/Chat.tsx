@@ -119,7 +119,7 @@ function OutgoingBubble({
         <div className={styles.bubbleBody}>
           <Text variant="body2Tight" className={styles.bodyText}>{children}</Text>
           <span className={styles.outgoingTimestamp}>
-            <CheckDouble16 size={12} />
+            <CheckDouble16 />
             <Text variant="microtext">{timestamp}</Text>
           </span>
         </div>
