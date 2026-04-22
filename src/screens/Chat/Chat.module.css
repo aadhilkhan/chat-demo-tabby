@@ -23,7 +23,7 @@
   justify-content: center;
   background: transparent;
   border: 0;
-  color: var(--tui-front-primary);
+  color: var(--tui-front-secondary);
   cursor: pointer;
   border-radius: 999px;
 }
@@ -55,8 +55,8 @@
   width: 32px;
   height: 32px;
   border-radius: 999px;
-  background: var(--tui-background-accent-muted-level-2);
-  color: var(--tui-front-accent);
+  background: var(--tui-background-general-level-2);
+  color: var(--tui-front-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -241,7 +241,7 @@
   border-radius: 999px;
   background: var(--tui-background-general-level-2);
   border: 0;
-  color: var(--tui-front-primary);
+  color: var(--tui-front-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
